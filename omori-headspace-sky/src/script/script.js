@@ -2,7 +2,7 @@ const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 const width = window.innerWidth;
 const height = window.innerHeight;
-var scale = 1.3;
+const scale = 1.0;
 const randomSeed = Math.floor(Math.random()*10);
 
 canvas.width = width * scale;
@@ -30,7 +30,7 @@ class Particle {
         ctx.save();
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2, false);
-        if(this.size > 1.5*scale){
+        if(this.size > 2*scale){
             ctx.filter = 'blur(1.5px)';
         }
         ctx.fillStyle = this.colour;
@@ -39,11 +39,11 @@ class Particle {
     }
 
     update(){
-        if(this.size < 1*scale){
-            this.size += 0.8*scale;
+        if(this.size < 2*scale){
+            this.size += 1.5*scale;
         }
         else{
-            this.size -= 0.8*scale;
+            this.size -= 1.5*scale;
         }
     }
 }
@@ -51,7 +51,7 @@ class Particle {
 function init(){
     particlesArray = [];
     for(let i = 0; i < nbOfParticles; i++){
-        let size = 2*Math.random()*scale;
+        let size = 3*Math.random()*scale;
         let x = Math.random() * canvas.width;
         let y = Math.random() * canvas.height;
         let colour = '#fff';
@@ -62,30 +62,47 @@ function init(){
 function preloadImages() {
     for (let i = 0; i < imgArray.length; i++) {
         const img = new Image();
-        img.src = imgArray[i];
+        img.src = 'src/assets/' + imgArray[i];
         imageCache.push(img);
     }
 
     // Draw images on the off-screen canvas once they are loaded
-    Promise.all(imageCache.map(img => new Promise(resolve => {
+    imageCache.map(img => new Promise(resolve => {
         img.onload = resolve;
-    }))).then(() => {
+    }).then(() => {
         drawImagesOnOffScreen();
-    });
+    }));
 }
 
 function drawImagesOnOffScreen() {
-    offScreenCanvas.width = canvas.width;
-    offScreenCanvas.height = canvas.height;
-    const nbLines = Math.floor(canvas.height / 10);
-    const nbCols = Math.floor(canvas.width / 10);
+    offScreenCanvas.width = window.innerWidth;
+    offScreenCanvas.height = window.innerHeight;
+    // Ratio scaling permits proper scaling of the images, based on the height of the screen
+    const ratioScaling = 965/window.innerHeight;
+    const AVG_IMG_WIDTH = 65/ratioScaling;
 
+    const nbLines = Math.floor(window.innerHeight/(AVG_IMG_WIDTH*4));
+    // We want to place 1 image per columns, every 4 * img width (permits proper spacing)
+    const nbCols = Math.floor(window.innerWidth/(AVG_IMG_WIDTH*4));
+
+    const lineHeight = window.innerHeight/nbLines;
+    const colWidth = (window.innerWidth/nbCols);
+
+    console.log(nbCols, nbLines)
+    let img = null;
     for (let i = 0; i < nbLines * nbCols; i++) {
-        const offsetX = ((Math.random() * (canvas.width / 10)) / 4) * (Math.random() < 0.5 ? 1 : -1);
-        const offsetY = ((Math.random() * (canvas.height / nbLines)) / 4) * (Math.random() < 0.5 ? 1 : -1);
-        offScreenCtx.drawImage(imageCache[i % imageCache.length], 
-            ((i%nbCols) * nbCols) + offsetX, 
-            (Math.floor(i / nbCols)*nbLines) + offsetY);
+        img = imageCache[Math.floor(Math.random() * imageCache.length)];
+        const offsetX = (colWidth/6) * (Math.floor(i / nbCols) % 2 == 0 ? 1 : -1) + (colWidth/3);
+        const offsetY =  (lineHeight/3)
+        const X = ((i%nbCols) * colWidth) + offsetX
+        const Y = (Math.floor(i/nbCols) * lineHeight)+offsetY
+        offScreenCtx.drawImage(
+            img,
+            X,
+            Y,
+            img.width/ratioScaling,
+            img.height/ratioScaling
+        );
     }
 }
 
@@ -100,5 +117,4 @@ function animate() {
 
 init();
 preloadImages();
-animate()
 setInterval(animate, 1500);
