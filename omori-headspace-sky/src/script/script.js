@@ -3,7 +3,6 @@ const ctx = canvas.getContext('2d');
 const width = window.innerWidth;
 const height = window.innerHeight;
 const scale = 1.0;
-const randomSeed = Math.floor(Math.random()*10);
 
 canvas.width = width * scale;
 canvas.height = height * scale;
@@ -93,7 +92,7 @@ function drawImagesOnOffScreen() {
     for (let i = 0; i < nbLines * nbCols; i++) {
         img = imageCache[Math.floor(Math.random() * imageCache.length)];
         const offsetX = (colWidth/6) * (Math.floor(i / nbCols) % 2 == 0 ? 1 : -1) + (colWidth/3);
-        const offsetY =  (lineHeight/3)
+        const offsetY =  ((lineHeight/6)+ Math.random()*(lineHeight/3) * (i % 2 == 0 ? 1 : -1)) + (lineHeight/6);
         const X = ((i%nbCols) * colWidth) + offsetX
         const Y = (Math.floor(i/nbCols) * lineHeight)+offsetY
         offScreenCtx.drawImage(
@@ -117,4 +116,5 @@ function animate() {
 
 init();
 preloadImages();
+animate();
 setInterval(animate, 1500);
