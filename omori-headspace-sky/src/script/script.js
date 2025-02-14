@@ -2,20 +2,20 @@ const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 const width = window.innerWidth;
 const height = window.innerHeight;
-const scale = 1.0;
+const scale = 1.0
+const nbOfParticles = (canvas.height * canvas.width) / 3000;
+const imageCache = [];
+const offScreenCanvas = document.createElement('canvas');
+const offScreenCtx = offScreenCanvas.getContext('2d');
+
+let particlesArray;
+let imgArray = ["etoile.png", "bed.png", "table.png"]
+let startTime = performance.now();
 
 canvas.width = width * scale;
 canvas.height = height * scale;
 ctx.scale(scale, scale);
 
-const nbOfParticles = (canvas.height * canvas.width) / 3000;
-
-let particlesArray;
-let imgArray = ["etoile.png", "bed.png", "table.png"]
-
-const imageCache = [];
-const offScreenCanvas = document.createElement('canvas');
-const offScreenCtx = offScreenCanvas.getContext('2d');
 
 class Particle {
     constructor(x, y, size, colour) {
@@ -66,11 +66,11 @@ function preloadImages() {
     }
 
     // Draw images on the off-screen canvas once they are loaded
-    imageCache.map(img => new Promise(resolve => {
+    Promise.all(imageCache.map(img => new Promise(resolve => {
         img.onload = resolve;
-    }).then(() => {
+    }))).then(() => {
         drawImagesOnOffScreen();
-    }));
+    });
 }
 
 function drawImagesOnOffScreen() {
@@ -105,16 +105,20 @@ function drawImagesOnOffScreen() {
     }
 }
 
-function animate() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(offScreenCanvas, 0, 0); // Draw the off-screen canvas
-    for (let i = 0; i < particlesArray.length; i++) {                
-        particlesArray[i].draw();
-        particlesArray[i].update();        
-    }
+function animate(timestamp) {
+    diff = timestamp - startTime;
+    if(diff >= 1500){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(offScreenCanvas, 0, 0); // Draw the off-screen canvas
+        for (let i = 0; i < particlesArray.length; i++) {                
+            particlesArray[i].draw();
+            particlesArray[i].update();               
+        }
+        startTime = timestamp;
+    }    
+    requestAnimationFrame(animate);
 }
 
 init();
 preloadImages();
 animate();
-setInterval(animate, 1500);
