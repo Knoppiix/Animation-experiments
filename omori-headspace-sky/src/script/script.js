@@ -3,7 +3,6 @@ const ctx = canvas.getContext('2d');
 const width = window.innerWidth;
 const height = window.innerHeight;
 const scale = 1.0
-const nbOfParticles = (canvas.height * canvas.width) / 3000;
 const imageCache = [];
 const offScreenCanvas = document.createElement('canvas');
 const offScreenCtx = offScreenCanvas.getContext('2d');
@@ -16,6 +15,7 @@ canvas.width = width * scale;
 canvas.height = height * scale;
 ctx.scale(scale, scale);
 
+const nbOfParticles = (canvas.height * canvas.width) / 3000;
 
 class Particle {
     constructor(x, y, size, colour) {
