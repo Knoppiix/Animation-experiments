@@ -9,11 +9,13 @@ const offScreenCtx = offScreenCanvas.getContext('2d');
 
 let particlesArray;
 let imgArray = ["etoile.png", "bed.png", "table.png"]
-let startTime = performance.now();
+let startTime = performance.now()
+let audio = new Audio('src/assets/White Space - Omori.mp3');
 
 canvas.width = width * scale;
 canvas.height = height * scale;
 ctx.scale(scale, scale);
+audio.volume = 0.3;
 
 const nbOfParticles = (canvas.height * canvas.width) / 3000;
 
@@ -111,13 +113,27 @@ function animate(timestamp) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(offScreenCanvas, 0, 0); // Draw the off-screen canvas
         for (let i = 0; i < particlesArray.length; i++) {                
-            particlesArray[i].draw();
-            particlesArray[i].update();               
+            particlesArray[i].update();    
+            particlesArray[i].draw();           
         }
         startTime = timestamp;
     }    
     requestAnimationFrame(animate);
 }
+
+function playAudio(){
+    if(audio.duration < 0 || audio.paused){
+        audio.play();
+        document.getElementById("audioOff").style = "display:none;"
+        document.getElementById("audioOn").style = "display:inline-block;"
+    }else{
+        document.getElementById("audioOn").style = "display:none;"
+        document.getElementById("audioOff").style = "display:inline-block;"
+        audio.pause()
+    }
+    
+}
+
 
 init();
 preloadImages();

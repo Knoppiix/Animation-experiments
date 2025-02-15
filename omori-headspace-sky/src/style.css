@@ -11,3 +11,25 @@
     height: 100%;
     background: #6611ff
 }
+
+#play{
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: rgba(255,255,255,0.6);
+    display: inline-block;
+    z-index: 1000;
+    position: relative;
+    box-shadow: -3px 3px 4px 3px rgba(0,0,0,0.3);
+    float:right;
+    margin: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+#play:hover{
+    transition: all .1s;
+    background-color: rgba(255,255,255,0.8);
+}
