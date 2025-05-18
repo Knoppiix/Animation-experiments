@@ -1,1 +1,1 @@
-Omori Headspace Sky Animation Demo => https://knoppiix.github.io/Animation-experiments/omori-headspace-sky/
+Visit my animation experiments sketchbook there https://knoppiix.github.io/Animation-experiments/
