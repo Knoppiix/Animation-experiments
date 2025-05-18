@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@1..900&family=Patua+One&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@1..900&family=Outfit:wght@100..900&family=Patua+One&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@1..900&family=Kurale&family=Outfit:wght@100..900&family=Patua+One&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Wellfleet&display=swap');
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+.frame{
+    box-shadow: 0px -7px 0px -5px rgba(0, 0, 0, 1), 0px 7px 0px -5px rgba(0, 0, 0, 1); 
+    width: auto; 
+    height: auto; 
+    place-self: center;
+    margin-top: 2%;
+    display: flex;
+    place-items: center;
+    justify-content: center;
+}
+.frameText {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 5px;
+    font-size: 24px;
+    font-family: 'Spectral', serif;
+}
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+li {
+    margin: 2rem;
+}
+
+a {
+    text-decoration: none; 
+    font-family: 'Kurale', serif;
+    font-size: 21px;
+}
+
+.spark {
+    position: relative;   
+}
+
+#spark1 {
+    top: -9px;
+    right: 4px;
+}
+
+#spark2 {
+    top: 10px;
+    right: -3px;
+}
+
+.container{
+    background-color: #1f1f1f;
+    padding: 1.5rem;
+    color: white;
+    box-shadow: 10px 10px 0px 1px rgb(255, 255, 255), 10px 10px 0px 2px rgb(0, 0, 0);
+}
+
+#omori-headspace-sky {
+    color: white;
+}
+
+.string {
+    width: 2px;
+    height: 5rem;
+    background-color: #1f1f1f;
+    position: absolute;
+    left: 33%;
+    top: 0;
+    place-content: end;
+
+}
+
+#lightbulb {     
+    position: relative;
+    left: 0.3px;
+    translate: -50% 50%;
+    transform: scale(1.1);   
+}
+
+
