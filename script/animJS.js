@@ -1,4 +1,4 @@
-import { animate, utils, createSpring, createTimeline } from 'animejs';
+import { animate, utils, createSpring, createTimeline } from 'https://cdn.jsdelivr.net/npm/animejs@4.0.0/+esm'
 
 const [ $frame ] = utils.$('.frame');
 const [ $frameText ] = utils.$('.frameText');
