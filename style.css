@@ -2,6 +2,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@1..900&family=Outfit:wght@100..900&family=Patua+One&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Hepta+Slab:wght@1..900&family=Kurale&family=Outfit:wght@100..900&family=Patua+One&family=Spectral:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,300;1,400;1,500;1,600;1,700;1,800&family=Wellfleet&display=swap');
 
+@keyframes loader {
+    0%{
+        mask-size: 100%;
+    }
+    100%{
+        mask-size: 2000%;
+        display: none;
+    }
+}
+
+
+
 body {
     margin: 0;
     padding: 0;
@@ -105,3 +117,20 @@ a {
 }
 
 
+.loader{
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    margin:0;
+    padding: 0;    
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background-color: black;
+    mask:  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-562 -1110 1200 2400'><path d='M37.5 235 20 110l-10 55c-45-220 100-220 55 0l-10-55z'/><path fill='white' d='M37.5 25c-25 30 0 60 0 60 25-30 0-60 0-60z'/><circle fill='white' cx='37.5' cy='55' r='5'/></svg>"), linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    mask-position: center;
+    mask-size: 100%;
+    mask-repeat: no-repeat;    
+    animation: loader .7s ease-in forwards;    
+}

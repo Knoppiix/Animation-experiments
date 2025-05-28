@@ -1,28 +1,13 @@
-import { animate, utils, createSpring, createTimeline } from 'https://cdn.jsdelivr.net/npm/animejs@4.0.0/+esm'
+import { animate, utils, createSpring, createTimeline, engine } from 'https://cdn.jsdelivr.net/npm/animejs@4.0.0/+esm'
 
 const [ $frame ] = utils.$('.frame');
 const [ $frameText ] = utils.$('.frameText');
-
-const frameText = "Animation experiments";
-const [ hands ] = utils.$('.hands');
 const [ container ] = utils.$('.container');
 let randomDelay = utils.random(0, 600);
 const somethingAudio = new Audio('assets/something.mp3');
 
-async function isAudioUnlocked(audioElement) {
-  // Try to play the audio (muted to avoid sound)
-  const prevMuted = audioElement.muted;
-  audioElement.muted = true;
-  try {
-      await audioElement.play();
-      audioElement.pause(); // Stop playback if it worked
-      audioElement.muted = prevMuted;
-      return true;
-  } catch (e) {
-      audioElement.muted = prevMuted;
-      return false;
-  }
-}
+
+engine.defaults.delay = 200; // Play the animations when the loader animation is finished
 
 const playAudio = () => {
   isAudioUnlocked(somethingAudio).then(unlocked => {
@@ -41,21 +26,6 @@ const playAudio = () => {
   }, { once: true })
 }
 container.addEventListener('mouseover', playAudio)
-
-
-for (let i = 0; i < frameText.length; i++) {
-    const node = document.createElement('span');
-    node.innerHTML = frameText[i] === ' ' ? '&nbsp;' : frameText[i];
-    $frameText.appendChild(node);
-}
-
-
-for(let i = 0; i < 10; i++){
-    const newHand = hands.cloneNode(true);
-    newHand.style.rotate = `${i * 36}deg`;
-    container.appendChild(newHand);
-}
-
 
 const frameAnimation = animate($frame,{  
     transform: ['scaleX(0)', 'scaleX(1)'],
@@ -106,17 +76,3 @@ animate(['feTurbulence', 'feDisplacementMap'], {
   duration: 1500,
   loop: true
 });
-
-
-const frameTimeline = createTimeline()
-.add(frameAnimation)
-.add(frameAnimationText);
-
-
-const sparkTimeline = createTimeline()
-.add(spark1Appear)
-.add(spark2Appear);
-
-const timeline = createTimeline()
-.sync(frameTimeline)
-.sync(sparkTimeline);
