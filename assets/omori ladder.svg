@@ -1,0 +1,45 @@
+<svg version="1.2"
+     xmlns="http://www.w3.org/2000/svg"
+     viewBox="0 0 50 100"
+     width="50" height="100">
+
+  <style>
+    /* your original 2px magenta lines */
+    .stroke {
+      fill: none;
+      stroke: #e888ff;
+      stroke-width: 1;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+  </style>
+
+  <defs>
+    <filter id="outside-stroke" x="-50%" y="-50%" width="200%" height="200%">
+      <!-- 1) fatten the alpha -->
+      <feMorphology in="SourceAlpha" operator="dilate" radius="1" result="dilated"/>
+      <!-- 2) subtract the original → outline mask -->
+      <feComposite in="dilated" in2="SourceAlpha" operator="out" result="outline"/>
+      <!-- 3) flood that mask with red -->
+      <feFlood flood-color="#8124cd" result="flooded"/>
+      <feComposite in="flooded" in2="outline" operator="in" result="coloredOutline"/>
+      <!-- 4) merge colored outline + original lines -->
+      <feMerge>
+        <feMergeNode in="coloredOutline"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- apply the filter to the whole group -->
+  <g filter="url(#outside-stroke)">
+    <path class="stroke" d="m18 0v100" />
+    <path class="stroke" d="m36 0v100" />
+    <path class="stroke" d="m27 9c-9 0-9 0-9 0h18" />
+    <path class="stroke" d="m27 22c0 1.4 0 1.9 0 2 0 0.2 0-3 0-3h9-9v4h-9" />
+    <path class="stroke" d="m27 40c0 2 0-2 0-2h-9l9 0.1v3.9h9" />
+    <path class="stroke" d="m27 59c-9 0-9 0-9 0h18" />
+    <path class="stroke" d="m27 72c0 1.4 0 1.9 0 2 0 0.2 0-3 0-3h9-9v4h-9" />
+    <path class="stroke" d="m27 90c0 2 0-2 0-2h-9l9 0.1v3.9h9" />
+  </g>
+</svg>

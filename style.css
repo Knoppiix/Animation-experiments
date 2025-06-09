@@ -4,21 +4,28 @@
 
 @keyframes loader {
     0%{
-        mask-size: 100%;
+        mask-size: 200vw;
     }
+
     100%{
-        mask-size: 2000%;
+        mask-size: 2000vw;
         display: none;
     }
 }
 
 
 
-body {
+html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
+    height: 100%;    
 }
+
+body {
+    padding-top: 20rem;
+}
+
 .frame{
     box-shadow: 0px -7px 0px -5px rgba(0, 0, 0, 1), 0px 7px 0px -5px rgba(0, 0, 0, 1); 
     width: auto; 
@@ -58,12 +65,12 @@ a {
 
 #spark1 {
     top: -9px;
-    right: 4px;
+    right: 4px;    
 }
 
 #spark2 {
     top: 10px;
-    right: -3px;
+    right: -3px;    
 }
 
 .container{
@@ -77,6 +84,16 @@ a {
     position: relative;
 }
 
+#omori-headspace-sky{
+    color: white;
+}
+
+.canvas1 > a {
+    color:white;
+    z-index: 1000;
+    position: relative;
+}
+
 .container::after{
     content: "";
     position: absolute;
@@ -87,10 +104,17 @@ a {
     z-index: -10000;
 }
 
-
-
-#omori-headspace-sky {
+.canvas1{
+    position: absolute;
+    background-color: #1f1f1f;
     color: white;
+    display: inline-block;
+    top: -20rem;
+    padding: 0;
+    margin: 0;
+    top: 0;
+    left: 0;
+    /* mask: url("data:image/svg+xml,<svg version='1.2' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 20' height='150'><style></style><path d='m6.2 11.7c-8.3-1.6-4.6-8.2-4.6-8.2 0 0 1.9-5.5 9.4-0.8 11 6.8 7.4-5.3 17-1 3.8 1.6-2.4 9.4 4.8 8.6 4-0.4 3.6 13.2-7.8 6.8-5.3-3.1-7.4 0.2-7.4 0.2 0 0-0.9 4.4-6.2 1.8-2.2-1-0.7-6.5-5.2-7.4z'/></svg>") no-repeat center center; */
 }
 
 .string {
@@ -99,14 +123,13 @@ a {
     background-color: #1f1f1f;
     position: absolute;
     left: 33%;
-    top: 0;
+    top: 20rem;
     place-content: end;
 }
 
 .hands{
     position: absolute;        
-    z-index: -1;
-    position: absolute;    
+    z-index: -1;    
 }
 
 #lightbulb {     
@@ -118,7 +141,7 @@ a {
 
 
 .loader{
-    position: absolute;
+    position: fixed;
     width: 100vw;
     height: 100vh;
     margin:0;
@@ -130,7 +153,20 @@ a {
     mask:  url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='-562 -1110 1200 2400'><path d='M37.5 235 20 110l-10 55c-45-220 100-220 55 0l-10-55z'/><path fill='white' d='M37.5 25c-25 30 0 60 0 60 25-30 0-60 0-60z'/><circle fill='white' cx='37.5' cy='55' r='5'/></svg>"), linear-gradient(#000 0 0);
     mask-composite: exclude;
     mask-position: center;
-    mask-size: 100%;
     mask-repeat: no-repeat;    
-    animation: loader .7s ease-in forwards;    
+    animation: loader 1.5s cubic-bezier(.7,-0.29,.32,1.6) forwards;    
+}
+
+.ladder{    
+    position: absolute;
+    right: 16.5%;
+    top: 12rem;
+    width: 66px;
+    height: 24rem;    
+    transform: rotate(-180deg);
+    background-image: url("assets/omori ladder.svg");    
+    background-position: center;
+    background-repeat: repeat-y;
+    background-size: contain;
+    cursor: pointer;
 }

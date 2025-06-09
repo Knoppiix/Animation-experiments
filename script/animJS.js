@@ -5,9 +5,15 @@ const [ $frameText ] = utils.$('.frameText');
 const [ container ] = utils.$('.container');
 let randomDelay = utils.random(0, 600);
 const somethingAudio = new Audio('assets/something.mp3');
+const ladder = utils.$('.ladder');
+const scrollElement = 
+    window.document.scrollingElement ||
+    window.document.body ||
+    window.document.documentElement;
 
 
-engine.defaults.delay = 200; // Play the animations when the loader animation is finished
+
+engine.defaults.delay = 550; // Play the animations when the loader animation is finished
 
 const playAudio = () => {
   isAudioUnlocked(somethingAudio).then(unlocked => {
@@ -68,6 +74,21 @@ const lightBulbAppear = animate(".string", {
   duration: 200,
 });
 
+
+ladder[0].addEventListener('click', () => {
+  if(window.scrollY >= 320){
+    window.scrollTo({
+      top: 0,    
+      behavior: 'smooth'
+    });
+  }else{
+    window.scrollTo({
+      top: 320,    
+      behavior: 'smooth'
+    });
+  }
+})
+
 animate(['feTurbulence', 'feDisplacementMap'], {
   baseFrequency: 0.03,
   scale: 40,
@@ -76,3 +97,4 @@ animate(['feTurbulence', 'feDisplacementMap'], {
   duration: 1500,
   loop: true
 });
+

@@ -22,10 +22,15 @@ const prevMuted = audioElement.muted;
 }
   
 // main 
+if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+}
+
 const $frameText = document.querySelector('.frameText');
 const frameText = "Animation experiments";
 const hands = document.querySelector('.hands');
 const container = document.querySelector('.container');
+const ladder = document.querySelector('.ladder');
 
 for (let i = 0; i < frameText.length; i++) {
     const node = document.createElement('span');
@@ -39,3 +44,15 @@ for(let i = 0; i < 10; i++){
     newHand.style.rotate = `${i * 36}deg`;
     container.appendChild(newHand);
 }
+
+window.addEventListener('beforeunload', () => {          
+    window.scrollTo({
+        top: 320,        
+    });
+});
+
+window.addEventListener('load', () => {
+    window.scrollTo({
+        top: 320,
+    });
+});
